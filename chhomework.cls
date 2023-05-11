@@ -28,15 +28,23 @@
 % PACKAGES
 \LoadClass[12pt, oneside]{amsart}
 \RequirePackage{chsymbol} % Chayut's Symbols Package
-\RequirePackage[OT1]{fontenc}
-\RequirePackage{boisik} % Typeset
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern} % Typeset
 
 \RequirePackage[margin=2cm]{geometry} % Margins
+\RequirePackage{enumitem}
 \RequirePackage{hyperref, cleveref}
-\RequirePackage{lipsum} 
-\RequirePackage{mathtools}
+\RequirePackage[nodisplayskipstretch]{setspace}
+  \setstretch{1} 
 \RequirePackage{needspace}
 \RequirePackage[framemethod=TikZ]{mdframed}
+\RequirePackage{ifthen}
+% \RequirePackage[dvipsnames]{xcolor}
+\RequirePackage[most]{tcolorbox}
+
+\RequirePackage{lipsum}
+\RequirePackage{mathtools}
+% \RequirePackage{sagetex}
 
 
 
@@ -47,24 +55,24 @@
 
 \declaretheoremstyle[ % Question/problem style
   spaceabove=6pt, spacebelow=6pt,
-  headfont=\normalfont\bfseries,
-  notefont=\normalfont\bfseries,
-  bodyfont=\normalfont,
+  headfont=\sffamily\bfseries,
+  notefont=\mdseries,
+  bodyfont=\sffamily,
   postheadspace=1em
 ]{problem}
 
 \declaretheoremstyle[ % Solution/answer style
   spaceabove=6pt, spacebelow=6pt,
-  headfont=\small\normalfont\scshape,
-  bodyfont=\small\normalfont,
+  headfont=\normalfont\scshape,
+  bodyfont=\normalfont,
   postheadspace=1em,
   qed=$\square$
 ]{solution}
 
 \declaretheoremstyle[ % Proof style
   spaceabove=6pt, spacebelow=6pt,
-  headfont=\small\normalfont\scshape,
-  bodyfont=\small\normalfont,
+  headfont=\normalfont\scshape,
+  bodyfont=\normalfont,
   postheadspace=1em,
   qed=$\blacksquare$
 ]{proof}
@@ -75,6 +83,14 @@
   bodyfont=\small\normalfont,
   postheadspace=1em,
 ]{remark}
+
+\declaretheoremstyle[ % Theorem style
+  spaceabove=6pt, spacebelow=6pt,
+  headfont=\normalfont\bfseries,
+  notefont=\bfseries\slshape,
+  bodyfont=\slshape,
+  postheadspace=1em
+]{thm}
 
 \declaretheorem[ % Question
   refname={question,questions},
@@ -120,39 +136,45 @@
   refname={theorem,theorems},
   Refname={Theorem,Theorems},
   name = Theorem,
-  style=plain]{thm}
+  style=thm]{thm}
 
 \declaretheorem[ % Proposition
   refname={proposition,propositions},
   Refname={Proposition,Propositions},
   name = Proposition,
   sibling=thm,
-  style=plain]{prop}
+  style=thm]{prop}
 
 \declaretheorem[ % Lemma
   refname={lemma,lemmas},
   Refname={Lemma,Lemmas},
   name = Lemma,
   sibling=thm,
-  style=plain]{lem}
+  style=thm]{lem}
 
 \declaretheorem[ % Definition
   refname={definition,definitions},
   Refname={Definition,Definitions},
   name = Definition,
   sibling=thm,
-  style=plain]{defi}
+  style=thm]{defi}
 
 \declaretheorem[ % Corollary
   refname={corollary,corollaries},
   Refname={Corollary,Corollaries},
   name = Corollary,
   sibling=thm,
-  style=plain]{cor}
+  style=thm]{cor}
+
+\declaretheorem[ % Boxed Theorem
+  refname={theorem,theorems},
+  Refname={Theorem,Theorems},
+  name = Theorem,
+  sibling=thm,
+  style=thm]{boxthm}
 
 
-
-
+\tcolorboxenvironment{boxthm}{enhanced jigsaw,drop shadow}
 
 
 
@@ -183,17 +205,17 @@
       {}{}%
     \patchcmd\thmt@original@endsol{\endtrivlist}{\endlist}{}{}%
   }
-  \preto\prf{% proof indent
-    \patchcmd\cref@thmnoarg
-      {\trivlist}
-      {\list{}{\leftmargin\parindent\rightmargin\parindent}}
-      {}{}%
-    \patchcmd\cref@thmoptarg
-      {\trivlist}
-      {\list{}{\leftmargin\parindent\rightmargin\parindent}}
-      {}{}%
-    \patchcmd\thmt@original@endprf{\endtrivlist}{\endlist}{}{}%
-  }
+  % \preto\prf{% proof indent
+  %   \patchcmd\cref@thmnoarg
+  %     {\trivlist}
+  %     {\list{}{\leftmargin\parindent\rightmargin\parindent}}
+  %     {}{}%
+  %   \patchcmd\cref@thmoptarg
+  %     {\trivlist}
+  %     {\list{}{\leftmargin\parindent\rightmargin\parindent}}
+  %     {}{}%
+  %   \patchcmd\thmt@original@endprf{\endtrivlist}{\endlist}{}{}%
+  % }
   \preto\rem{% remark indent
     \patchcmd\cref@thmnoarg
       {\trivlist}
@@ -204,5 +226,28 @@
       {\list{}{\leftmargin\remindent\rightmargin\remindent}}
       {}{}%
     \patchcmd\thmt@original@endrem{\endtrivlist}{\endlist}{}{}%
+  }
+\makeatother
+
+
+
+
+
+
+% TITLE
+\makeatletter
+  \gdef\@author{\empty}
+  \gdef\@course{\empty}
+  \newcommand{\course}[1]{\gdef\@course{#1}}
+  \renewcommand{\author}[1]{\gdef\@author{#1}}
+  \renewcommand{\maketitle} {
+    \begin{center}
+      \Large \textsc{\@title} \\
+      \normalsize
+      \ifthenelse{\equal{\@course}{\empty}}{}{\textsc{\@course}\\}
+      \bigskip\ifthenelse{\equal{\@author}{\empty}}{}{\textsf{\@author}\\}
+      \@date
+    \end{center}
+    \rule{\linewidth}{1pt}
   }
 \makeatother

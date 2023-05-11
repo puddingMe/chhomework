@@ -1,3 +1,12 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chayut's Symbols Package - Version 1.0
+% chsymbol.sty
+%
+% Convinient commands designed for general mathematics.
+% Commands format loosely follow ProofWiki.
+% Standard notations follows Keith Conrad's.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{chsymbol}[2023/05/10 Chayut's Symbols Package]
 
@@ -7,67 +16,103 @@
 \RequirePackage{amscd}
 \RequirePackage{graphicx}
 
-% new and renewed commands
+% Style commands
 \DeclareRobustCommand{\bb}[1]{\mathbb{#1}}
 \DeclareRobustCommand{\cal}[1]{\mathcal{#1}}
-\DeclareRobustCommand{\sc}[1]{\textsc{#1}}
-\DeclareMathOperator{\D}{d}
-\renewcommand{\qedsymbol}{$_{\scriptstyle \substack{\sc{quod}\\\sc{erat}\\\sc{dem}\scalebox{0.53}{$\blacksquare$}}}$}
+\renewcommand\qedsymbol{$\square$}
 
-% Deprecated Set Symbols
-\newcommand{\bC}{\bb{C}\PackageWarning{hwsymb}{\noexpand\bC is deprecated, use \noexpand\C instead}}
-\newcommand{\bR}{\bb{R}\PackageWarning{hwsymb}{\noexpand\bR is deprecated, use \noexpand\R instead}}
-\newcommand{\bQ}{\bb{Q}\PackageWarning{hwsymb}{\noexpand\bQ is deprecated, use \noexpand\Q instead}}
-\newcommand{\bZ}{\bb{Z}\PackageWarning{hwsymb}{\noexpand\bZ is deprecated, use \noexpand\Z instead}}
-\newcommand{\bN}{\bb{N}\PackageWarning{hwsymb}{\noexpand\bN is deprecated, use \noexpand\N instead}}
+% bb
+\renewcommand{\AA}{\bb{A}} % Algebraic numbers
+\newcommand{\BB}{\bb{B}}
+\newcommand{\CC}{\bb{C}} % Complex numbers
+\newcommand{\DD}{\bb{D}}
+\newcommand{\EE}{\bb{E}}
+\newcommand{\FF}{\bb{F}} % Finite field
+\newcommand{\GG}{\bb{G}}
+\newcommand{\HH}{\bb{H}} % Quaternions
+\newcommand{\II}{\bb{I}}
+\newcommand{\JJ}{\bb{J}}
+\newcommand{\KK}{\bb{K}}
+\newcommand{\LL}{\bb{L}}
+\newcommand{\MM}{\bb{M}}
+\newcommand{\NN}{\bb{N}} % Natural numbers
+\newcommand{\OO}{\bb{O}}
+\newcommand{\PP}{\bb{P}} % Prime integers
+\newcommand{\QQ}{\bb{Q}} % Rationals
+\newcommand{\RR}{\bb{R}} % Real numbers
+\renewcommand{\SS}{\bb{S}}
+\newcommand{\TT}{\bb{T}}
+\newcommand{\UU}{\bb{U}}
+\newcommand{\VV}{\bb{V}}
+\newcommand{\WW}{\bb{W}}
+\newcommand{\XX}{\bb{X}}
+\newcommand{\YY}{\bb{Y}}
+\newcommand{\ZZ}{\bb{Z}} % Integers
 
-% Symbols
-\newcommand*{\eg}{\leavevmode\unskip , e.g., \ignorespaces}
-\newcommand*{\ie}{\leavevmode\unskip, i.e., \ignorespaces}
-\newcommand{\nil}{\varnothing}
-\AtBeginDocument{\def\O{\cal{O}}} % Big Oh
-\AtBeginDocument{\def\C{\bb{C}}} % Complex
-\newcommand{\R}{\bb{R}} % Reals
-\newcommand{\Q}{\bb{Q}} % Rationals
-\newcommand{\Z}{\bb{Z}} % Integers
-\newcommand{\N}{\bb{N}} % Naturals
-\renewcommand{\P}{\bb{P}} % Primes
-\newcommand{\F}{\bb{F}} % Field
-\newcommand{\GF}[1][2]{\bb{F}_{#1}} % Galois Field
-\newcommand{\modulo}[1][n]{\Z/#1\Z} % Modulo class n
-\newcommand{\ra}{\rightarrow}
-\newcommand{\Ra}{\Rightarrow}
-\newcommand{\?}{\stackrel{?}{=}}
-\newcommand{\is}{\equiv}
+% Greek
 \newcommand{\al}{\alpha}
 \newcommand{\ep}{\epsilon}
-% \renewcommand{\phi}{\varphi}
-\newcommand{\p}{\partial}
+
+% Math Operators
+\DeclareMathOperator{\adj}{adj} % Adjugate Matrix
+\DeclareMathOperator{\Aut}{Aut} % Automorphism group
+\DeclareMathOperator{\Card}{Card} % Cardinality
+\DeclareMathOperator{\Char}{char} % Ring characteristic
+\DeclareMathOperator{\Dic}{Dic} % Dicyclic group
+\DeclareMathOperator{\End}{End} % Endomorphisms
+\DeclareMathOperator{\Ext}{Ext} % Exterior
+\DeclareMathOperator{\Frob}{Frob} % Frobenius endomorphism
+\DeclareMathOperator{\Gal}{Gal} % Galois group
+\DeclareMathOperator{\GL}{GL} % General linear group
+\DeclareMathOperator{\Img}{Img} % Image
+\DeclareMathOperator{\Inn}{Inn} % Inner automorphisms
+\DeclareMathOperator{\Int}{Int} % Interior
+\DeclareMathOperator{\Nil}{Nil} % Nilradical
+\DeclareMathOperator{\Orb}{Orb} % Orbit
+\DeclareMathOperator{\SL}{SL} % Special linear group
+\DeclareMathOperator{\Stab}{Stab} % Stabilizer
+\DeclareMathOperator{\Succ}{Succ} % Successor
+
+\DeclareMathOperator{\arccot}{arccot} % Arccotangent
+\DeclareMathOperator{\arcsec}{arcsec} % Arcsecant
+\DeclareMathOperator{\arccsc}{arccsc} % Arccosecant
+
+
+
+% Brackets
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil} % ceiling
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor} % floor
+\newcommand{\near}[1]{\left\lfloor#1\right\rceil} % near
+\newcommand{\gen}[1]{\left\langle#1\right\rangle} % generated set
+\newcommand{\paren}[1]{\left(#1\right)} % parenthesis
+\newcommand{\brk}[1]{\left[#1\right]} % square brackets
+\newcommand{\abs}[1]{\left|#1\right|} % absolute value
+\newcommand{\set}[1]{\left\{#1\right\}} % set
+\renewcommand{\index}[2]{\left[#1 : #2\right]} % group index/extension degree
+
+\newcommand{\tup}[1]{\paren{#1}} % tuple
+\newcommand{\ideal}[1]{\paren{#1}} % generated ideal
+\newcommand{\order}[1]{\abs{#1}} % group order
+\newcommand{\comm}[1]{\brk{#1}} % commutator
+
+
+
+% Miscellaneous
+\newcommand{\modulo}[1][n]{\ZZ/#1\ZZ} % Additive group modulo n
+\newcommand{\bigO}{\cal{O}} % Big O
+\newcommand{\p}{\partial} % partial derivative
+\newcommand{\map}[3]{#1 : #2 \longrightarrow #3} % map: domain -> codomain
+\newcommand{\func}[2]{#1\paren{#2}} % f(x)
+\renewcommand{\gcd}[1]{\rm{gcd}\paren{#1}} % gcd
+\newcommand{\lcm}[1]{\rm{lcm}\paren{#1}} % lcm
+
+
+% Relations
+\newcommand{\ra}{\longrightarrow} % set map
 \newcommand{\injective}{\hookrightarrow}
 \newcommand{\surjective}{\twoheadrightarrow}
 \newcommand{\bijective}{\hookrightarrow\mathrel{\mspace{-15mu}}\rightarrow}
-\newcommand{\derivative}[2][x]{\frac{\D #2}{\D #1}}
-\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
-\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
-\newcommand{\near}[1]{\left\lfloor#1\right\rceil}
-\newcommand{\gen}[1]{\left\langle#1\right\rangle}
-\newcommand{\paren}[1]{\left(#1\right)}
-\newcommand{\brk}[1]{\left[#1\right]}
-\newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\set}[1]{\left\{#1\right\}}
 
-
-\renewcommand\qedsymbol{$\square$}
-\newcommand{\ind}[2]{\left[#1 : #2\right]}
-\newcommand{\iso}{\cong}
-\newcommand{\tup}[1]{\left(#1\right)}
-\newcommand{\ideal}[1]{\left(#1\right)}
-\newcommand{\pol}[1]{#1\left[ x\right]}
-\newcommand{\map}[3]{#1 : #2 \longrightarrow #3}
-\newcommand{\Orb}[1]{\rm{Orb}\paren{#1}}
-\newcommand{\Stab}[1]{\rm{Stab}\paren{#1}}
-\newcommand{\order}[1]{\left|#1\right|}
-\renewcommand{\gcd}[1]{\rm{gcd}\paren{#1}}
-\newcommand{\lcm}[1]{\rm{lcm}\paren{#1}}
-\newcommand{\comm}[1]{\left[#1\right]}
-\newcommand{\func}[2]{#1\paren{#2}}
+\newcommand{\?}{\stackrel{?}{=}} % equality in question
+\newcommand{\iso}{\cong} % isomorphic
+\newcommand{\divides}{\mid} % divides
